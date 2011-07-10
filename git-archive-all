@@ -6,8 +6,8 @@ from optparse import OptionParser
 from sys import argv, stdout
 from fnmatch import fnmatch
 
-git_repositary_path = path.abspath('')
-git_repositary_name = path.basename(git_repositary_path)
+git_repository_path = path.abspath('')
+git_repository_name = path.basename(git_repository_path)
 
 parser = OptionParser(usage="usage: %prog --output OUTPUT_FILE [--format FORMAT] [-v] [--prefix PREFIX]", version="%prog 1.0")
 
@@ -77,7 +77,7 @@ def git_files(baselevel=''):
 	for submodule in Popen("git submodule --quiet foreach --recursive 'pwd'", shell=True, stdout=PIPE).stdout.read().splitlines():
 		chdir(submodule)
 		# in order to get output path we need to exclude repository path from the submodule path
-		submodule = submodule[len(git_repositary_path)+1:]
+		submodule = submodule[len(git_repository_path)+1:]
 		# recursion allows us to process repositories with more than one level of submodules
 		for git_file in git_files(submodule):
 			yield git_file
